@@ -1,0 +1,22 @@
+--SUBQUERY
+
+select*
+from employees
+
+--Subquery in Select Statement
+
+select emp_no,first_name,salary, (select avg(salary) from employees) as AllAvg_Salary
+from employees
+
+
+--Subquery in From Statement
+
+select a.emp_no,first_name,AllAvg_Salary
+from (select emp_no,first_name,salary, (select avg(salary) from employees) as AllAvg_Salary
+from employees) as a
+
+--Subquery in Where Statement 
+
+select emp_no, first_name,department, DATEDIFF(YEAR,birth_date,getdate()) as age_of_Emp
+from employees
+where salary > (select avg(Salary) from employees)
